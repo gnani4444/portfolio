@@ -142,7 +142,7 @@ export default function Hero() {
           6.5+ years building{" "}
           <span className="text-secondary">production AI/ML systems</span>,
           GenAI agents, and LLM pipelines that deliver measurable business
-          impact.
+          impact and a <span className="text-secondary">Claude Certified Architect</span>.
         </p>
 
         {/* CTAs */}
