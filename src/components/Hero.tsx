@@ -168,7 +168,7 @@ export default function Hero() {
           {[
             { value: "6.5+", label: "Years Experience" },
             { value: "15+", label: "Models Deployed" },
-            { value: "$1M+", label: "Business Impact" },
+            { value: "$10M+", label: "Business Impact" },
             { value: "10K+", label: "Manual Hours Saved" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">

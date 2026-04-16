@@ -8,22 +8,25 @@ const projects = [
     title: "GiftVision",
     subtitle: "AI Product Customisation Platform",
     description:
-      "Interactive split-pane web app where users chat with Google Gemini to customise awards, trophies, and gifts via natural language. The AI generates realistic product images with modifications applied in real time.",
+      "Chat with Gemini 3.0 Flash to customise awards, trophies, and gifts via natural language — no editing software required. Describe your vision and the AI instantly generates a realistic product image, ready to go straight to hardware production.",
     longDesc:
-      "Users select a base product from the gallery, then describe desired changes in plain English — 'add a gold rim', 'engrave my name', 'make it silver'. Gemini 2.0 Flash receives both the base product image (multimodal input) and the user prompt, generating a modified product image instantly.",
-    tags: ["Next.js 16", "TypeScript", "React 19", "Gemini 2.0 Flash", "TailwindCSS", "Multimodal AI"],
+      "Users select a base product from the gallery, then describe desired changes in plain English — 'Add Taylor as Employee of the Year', 'Happy Valentine's Day with a red ribbon', 'Happy Birthday Sarah'. Gemini 3.0 Flash receives both the base product image (multimodal input) and the user prompt, generating a modified product image instantly. Outputs go straight to hardware production — no designer or editing tools needed.",
+    tags: ["Next.js 16", "TypeScript", "React 19", "Gemini 3.0 Flash", "TailwindCSS", "Multimodal AI", "No-Code Customisation", "Hardware Production"],
     gradient: "from-blue-500/20 to-cyan-400/20",
     accentColor: "#2997ff",
     icon: "🎁",
     features: [
+      "No editing software required — describe in plain English",
+      "AI-generated images ready for hardware production",
+      "Conversational chat interface with full message history",
+      "Wide variety of gift types: trophies, awards, plaques & more",
       "Multimodal AI (image + text input)",
       "Real-time image generation",
-      "Split-pane chat UI",
-      "Product gallery with 4 base items",
     ],
-    link: null,
+    link: "https://v0-e-commerce-customization-platfor.vercel.app/",
     github: null,
-    badge: "Personal Project",
+    badge: "Featured",
+    featured: true,
   },
   {
     title: "Campaign Intelligence Platform",
@@ -45,6 +48,7 @@ const projects = [
     link: null,
     github: null,
     badge: "Production System",
+    featured: false,
   },
   {
     title: "Agentic Job Discovery Engine",
@@ -66,8 +70,205 @@ const projects = [
     link: null,
     github: null,
     badge: "Open Source",
+    featured: false,
   },
 ];
+
+function FeaturedProjectCard({
+  project,
+  inView,
+}: {
+  project: (typeof projects)[0];
+  inView: boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div
+      className={`relative mb-10 transition-all duration-1000 ${inView ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+    >
+      {/* Outer glow */}
+      <div
+        className="absolute -inset-1 rounded-3xl opacity-40 blur-md animate-pulse"
+        style={{ background: "linear-gradient(135deg,#2997ff,#64d2ff,#2997ff)" }}
+      />
+      <div
+        className="relative rounded-3xl overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg,#000d1a 0%,#001428 100%)",
+          border: "1.5px solid rgba(41,151,255,0.45)",
+        }}
+      >
+        {/* Top bar */}
+        <div className="h-1 w-full" style={{ background: "linear-gradient(90deg,#2997ff,#64d2ff,#2997ff)" }} />
+
+        <div className="p-8 md:p-12">
+          <div className="flex flex-col lg:flex-row gap-10 items-start">
+            {/* Left: content */}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-5">
+                <span
+                  className="px-3 py-1 rounded-full text-xs font-bold"
+                  style={{
+                    background: "rgba(41,151,255,0.15)",
+                    border: "1px solid rgba(41,151,255,0.4)",
+                    color: "#2997ff",
+                  }}
+                >
+                  ⭐ Featured Project
+                </span>
+                <span
+                  className="px-3 py-1 rounded-full text-xs font-bold"
+                  style={{
+                    background: "rgba(48,209,88,0.12)",
+                    border: "1px solid rgba(48,209,88,0.35)",
+                    color: "#30d158",
+                  }}
+                >
+                  🟢 Live
+                </span>
+              </div>
+
+              <div className="flex items-center gap-4 mb-3">
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
+                  style={{
+                    background: "rgba(41,151,255,0.15)",
+                    border: "1px solid rgba(41,151,255,0.3)",
+                  }}
+                >
+                  {project.icon}
+                </div>
+                <div>
+                  <h3 className="text-3xl font-black text-white">{project.title}</h3>
+                  <p className="text-sm font-semibold" style={{ color: "#2997ff" }}>
+                    {project.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-slate-400 leading-relaxed mb-5">{project.description}</p>
+
+              {/* Expandable */}
+              <div
+                className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-64" : "max-h-0"}`}
+              >
+                <p className="text-slate-500 leading-relaxed mb-4 pt-4 border-t border-white/5">
+                  {project.longDesc}
+                </p>
+                <ul className="space-y-1.5 mb-4">
+                  {project.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-sm text-slate-400">
+                      <span style={{ color: "#2997ff" }}>▸</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 text-xs font-mono rounded-lg"
+                    style={{
+                      background: "rgba(41,151,255,0.08)",
+                      border: "1px solid rgba(41,151,255,0.2)",
+                      color: "#74c2ff",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Actions */}
+              <div className="flex items-center gap-3 flex-wrap">
+                <a
+                  href={project.link!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 hover:scale-105 group"
+                  style={{
+                    background: "#2997ff",
+                    color: "#fff",
+                    boxShadow: "0 4px 20px rgba(41,151,255,0.4)",
+                  }}
+                >
+                  <span>View Live Demo</span>
+                  <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+                <button
+                  onClick={() => setExpanded(!expanded)}
+                  className="px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 border"
+                  style={{
+                    borderColor: "rgba(41,151,255,0.3)",
+                    color: "#2997ff",
+                    background: "rgba(41,151,255,0.07)",
+                  }}
+                >
+                  {expanded ? "Show Less ↑" : "Learn More ↓"}
+                </button>
+              </div>
+            </div>
+
+            {/* Right: Live preview iframe */}
+            <div className="flex-shrink-0 w-full lg:w-[420px]">
+              <div
+                className="rounded-2xl overflow-hidden"
+                style={{
+                  border: "1px solid rgba(41,151,255,0.2)",
+                  background: "#000",
+                  boxShadow: "0 8px 40px rgba(41,151,255,0.15)",
+                }}
+              >
+                {/* Browser chrome */}
+                <div
+                  className="flex items-center gap-2 px-4 py-2.5"
+                  style={{ background: "rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}
+                >
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                  <span className="ml-2 text-xs text-slate-600 font-mono truncate">
+                    v0-e-commerce-customization-platfor.vercel.app
+                  </span>
+                </div>
+                <div style={{ height: 320, position: "relative" }}>
+                  <iframe
+                    src="https://v0-e-commerce-customization-platfor.vercel.app/"
+                    title="GiftVision Live Preview"
+                    className="w-full h-full"
+                    style={{ border: "none", pointerEvents: "none" }}
+                    loading="lazy"
+                  />
+                  {/* Overlay to open on click */}
+                  <a
+                    href="https://v0-e-commerce-customization-platfor.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "rgba(0,0,0,0.45)" }}
+                  >
+                    <span
+                      className="px-4 py-2 rounded-xl text-sm font-bold text-white"
+                      style={{ background: "#2997ff", boxShadow: "0 2px 12px rgba(41,151,255,0.5)" }}
+                    >
+                      Open Full Demo ↗
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ProjectCard({
   project,
@@ -117,20 +318,13 @@ function ProjectCard({
 
         {/* Title */}
         <h3 className="text-xl font-bold text-white mb-1">{project.title}</h3>
-        <p
-          className="text-sm font-medium mb-3"
-          style={{ color: project.accentColor }}
-        >
+        <p className="text-sm font-medium mb-3" style={{ color: project.accentColor }}>
           {project.subtitle}
         </p>
-        <p className="text-sm text-slate-400 leading-relaxed mb-4">
-          {project.description}
-        </p>
+        <p className="text-sm text-slate-400 leading-relaxed mb-4">{project.description}</p>
 
         {/* Expandable details */}
-        <div
-          className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-96" : "max-h-0"}`}
-        >
+        <div className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-96" : "max-h-0"}`}>
           <p className="text-sm text-slate-500 leading-relaxed mb-4 pt-2 border-t border-dark-border">
             {project.longDesc}
           </p>
@@ -178,6 +372,9 @@ function ProjectCard({
 export default function Projects() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
+  const featuredProject = projects.find((p) => p.featured)!;
+  const otherProjects = projects.filter((p) => !p.featured);
+
   return (
     <section id="projects" className="py-32 px-6 relative" ref={ref}>
       <div className="absolute inset-0 pointer-events-none">
@@ -187,22 +384,30 @@ export default function Projects() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex items-center gap-4 mb-5">
-          <span className="text-primary font-mono text-sm font-bold tracking-widest">
-            04.
-          </span>
-          <h2 className="section-heading text-white">Projects</h2>
+          <span className="text-primary font-mono text-sm font-bold tracking-widest">03.</span>
+          <h2 className="section-heading text-white">Personal Projects</h2>
           <div className="flex-1 h-px bg-gradient-to-r from-dark-border to-transparent" />
         </div>
         <p className="text-slate-400 mb-12 max-w-xl">
-          A selection of AI/ML systems I've designed, built, and shipped —
-          from GenAI agents to full-stack AI applications.
+          AI/ML systems I&apos;ve designed, built, and shipped — from GenAI agents to full-stack AI applications.
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} inView={inView} />
-          ))}
-        </div>
+        {/* Featured project */}
+        <FeaturedProjectCard project={featuredProject} inView={inView} />
+
+        {/* Other projects */}
+        {otherProjects.length > 0 && (
+          <>
+            <h3 className="text-sm font-mono text-slate-500 uppercase tracking-widest mb-6">
+              More Projects
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {otherProjects.map((project, i) => (
+                <ProjectCard key={project.title} project={project} index={i} inView={inView} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

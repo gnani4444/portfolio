@@ -12,9 +12,9 @@ const skillCategories = [
     color: "#2997ff",
     gradient: "linear-gradient(90deg,#2997ff,#74c2ff)",
     skills: [
-      { name: "Python",           score: 95 },
-      { name: "SQL / SparkSQL",   score: 91 },
-      { name: "PySpark",          score: 79 },
+      { name: "Python",         score: 95 },
+      { name: "SQL / SparkSQL", score: 91 },
+      { name: "PySpark",        score: 79 },
     ],
   },
   {
@@ -22,10 +22,9 @@ const skillCategories = [
     color: "#bf5af2",
     gradient: "linear-gradient(90deg,#bf5af2,#da8fff)",
     skills: [
-      { name: "Scikit-learn",          score: 92 },
-      { name: "XGBoost / LightGBM",    score: 91 },
-      { name: "PyTorch",               score: 86 },
-      { name: "TensorFlow / Keras",    score: 88 },
+      { name: "Scikit-learn / XGBoost / LightGBM", score: 92 },
+      { name: "PyTorch",                           score: 86 },
+      { name: "TensorFlow / Keras",                score: 88 },
     ],
   },
   {
@@ -33,10 +32,10 @@ const skillCategories = [
     color: "#ffd60a",
     gradient: "linear-gradient(90deg,#ffd60a,#ff9f0a)",
     skills: [
-      { name: "LLM Fine-Tuning (LoRA/QLoRA)", score: 87 },
-      { name: "Prompt Engineering",           score: 93 },
-      { name: "RAG Systems",                  score: 88 },
-      { name: "Vector Databases (FAISS)",      score: 84 },
+      { name: "Agentic Systems · Claude · Gemini", score: 91 },
+      { name: "Prompt Engineering & RAG",          score: 93 },
+      { name: "LLM Fine-Tuning (LoRA / QLoRA)",   score: 87 },
+      { name: "Vector Databases (FAISS)",          score: 84 },
     ],
   },
   {
@@ -44,10 +43,9 @@ const skillCategories = [
     color: "#30d158",
     gradient: "linear-gradient(90deg,#30d158,#64d68a)",
     skills: [
-      { name: "MLflow / Experiment Tracking", score: 84 },
-      { name: "Azure DevOps / CI-CD",         score: 80 },
-      { name: "Model Monitoring",             score: 83 },
-      { name: "Data Pipeline Automation",     score: 87 },
+      { name: "MLflow · Azure DevOps · CI/CD", score: 84 },
+      { name: "Model Monitoring & Retraining", score: 83 },
+      { name: "Data Pipeline Automation",      score: 87 },
     ],
   },
 ];
@@ -80,18 +78,26 @@ function SkillBar({
     }
   }, [animate, score, delay]);
 
+  // Convert numeric score to a tier label
+  const tier = score >= 92 ? "Expert" : score >= 86 ? "Advanced" : score >= 80 ? "Proficient" : "Solid";
+
   return (
     <div className="group">
       <div className="flex justify-between items-center mb-2">
         <span className="text-sm font-medium text-[#86868b] group-hover:text-[#f5f5f7] transition-colors">
           {name}
         </span>
-        {/* Score renders AFTER animation — not baked into HTML */}
+        {/* Tier label renders AFTER animation — not baked into HTML */}
         <span
-          className="text-xs font-bold font-mono transition-all duration-500"
-          style={{ color, opacity: showScore ? 1 : 0 }}
+          className="text-[10px] font-bold uppercase tracking-widest transition-all duration-500 px-2 py-0.5 rounded-full"
+          style={{
+            color,
+            opacity: showScore ? 1 : 0,
+            background: `${color}18`,
+            border: `1px solid ${color}35`,
+          }}
         >
-          {score}%
+          {tier}
         </span>
       </div>
       <div className="h-[4px] bg-white/[0.06] rounded-full overflow-hidden">
@@ -226,22 +232,30 @@ function SkillsModal({ open, onClose }: { open: boolean; onClose: () => void }) 
           </button>
         </div>
         <p className="text-sm text-[#86868b] mb-8">
-          Comprehensive proficiency assessment · scores stored in JS, not HTML
+          Proficiency depth map · data lives in JS, not the DOM
         </p>
 
         <RadarChart animate={open} />
 
         <div className="grid grid-cols-2 gap-2 mt-8">
-          {allSkills.map(skill => (
-            <div key={skill.name}
-              className="flex items-center justify-between px-4 py-3 rounded-xl"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
-              <span className="text-sm font-medium text-[#f5f5f7]">{skill.name}</span>
-              <span className="text-sm font-bold font-mono" style={{ color: skill.color }}>
-                {skill.score}%
-              </span>
-            </div>
-          ))}
+          {allSkills.map(skill => {
+            const tier =
+              skill.score >= 92 ? { label: "Expert",     emoji: "🔥" } :
+              skill.score >= 86 ? { label: "Advanced",   emoji: "⚡" } :
+              skill.score >= 80 ? { label: "Proficient", emoji: "✦"  } :
+                                  { label: "Solid",      emoji: "◎"  };
+            return (
+              <div key={skill.name}
+                className="flex items-center justify-between px-4 py-3 rounded-xl"
+                style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <span className="text-sm font-medium text-[#f5f5f7]">{skill.name}</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+                  style={{ color: skill.color, background: `${skill.color}18`, border: `1px solid ${skill.color}35` }}>
+                  {tier.emoji} {tier.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -281,7 +295,7 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex items-center gap-4 mb-6">
-          <span className="text-primary font-mono text-sm font-bold tracking-widest">02.</span>
+          <span className="text-primary font-mono text-sm font-bold tracking-widest">05.</span>
           <h2 className="section-heading text-[#f5f5f7]">Technical Skills</h2>
           <div className="flex-1 h-px" style={{ background: "linear-gradient(to right, rgba(255,255,255,0.1), transparent)" }} />
         </div>
@@ -296,10 +310,10 @@ export default function Skills() {
               border: "1px solid rgba(41,151,255,0.2)",
               color: "#2997ff",
             }}
-            title="Scores are stored in JavaScript — click 3 times to unlock full analysis"
+            title="Depth map hidden in JS — click 3 times to unlock"
           >
             <span className="font-mono text-base tracking-tighter">{"{ }"}</span>
-            <span>Scores in JS · click 3× to reveal</span>
+            <span>Unlock depth map · 3 clicks</span>
           </button>
           {/* Progress dots */}
           <div className="flex gap-1.5">

@@ -5,8 +5,8 @@ import { useInView } from "react-intersection-observer";
 const experiences = [
   {
     role: "Senior Data Scientist",
-    company: "Vodafone UK / EE",
-    period: "2021 – Present",
+    company: "",
+    period: "2022 – Present",
     type: "Full-time",
     highlights: [
       {
@@ -15,8 +15,8 @@ const experiences = [
         tags: ["Gemini 2.5 Pro", "Multi-turn Agents", "Agentic Loop", "FastAPI"],
       },
       {
-        title: "Pixel Dynamic Pricing Model",
-        desc: "End-to-end LightGBM regression model for Pixel phone pricing optimisation, delivering $1M in savings over 6 campaigns.",
+        title: "Dynamic Pricing Model",
+        desc: "End-to-end LightGBM regression model for phone pricing optimisation, delivering $10M+ in savings over 6 campaigns.",
         tags: ["LightGBM", "Regression", "Pricing Strategy"],
       },
       {
@@ -33,28 +33,20 @@ const experiences = [
   },
   {
     role: "Data Scientist",
-    company: "NHS / Healthcare Analytics",
-    period: "2019 – 2021",
+    company: "",
+    period: "2019 – 2022",
     type: "Full-time",
     highlights: [
       {
         title: "Predictive Healthcare Risk Modelling",
-        desc: "Predictive model identifying patients at high risk of unplanned hospital admissions within 6 months, enabling proactive intervention and care planning, generating £15M in savings.",
-        tags: ["Survival Analysis", "A/B Testing", "Time Series", "SHAP"],
+        desc: "Developed a predictive model to identify patients at high risk of unplanned inpatient hospital admissions within six months, enabling proactive intervention and care planning — generating $15M in savings within one year.",
+        tags: ["Survival Analysis", "XGBoost", "SHAP", "Healthcare"],
       },
       {
         title: "Enterprise Reporting Automation",
         desc: "Scaled end-to-end reporting automation using Python, SQL and Google Sheets APIs, reducing manual effort significantly and saving $15K annually.",
         tags: ["Python", "SQL", "Google Sheets API", "Automation"],
       },
-    ],
-  },
-  {
-    role: "Junior Data Scientist",
-    company: "Analytics Consultancy",
-    period: "2018 – 2019",
-    type: "Full-time",
-    highlights: [
       {
         title: "Model Productionisation & MLOps",
         desc: "Productionised multiple predictive models with robust data pipelines, monitoring, and retraining workflows on Azure.",
@@ -82,7 +74,7 @@ export default function Experience() {
         {/* Heading */}
         <div className="flex items-center gap-4 mb-16">
           <span className="text-primary font-mono text-sm font-bold tracking-widest">
-            03.
+            02.
           </span>
           <h2 className="section-heading text-white">Experience</h2>
           <div className="flex-1 h-px bg-gradient-to-r from-dark-border to-transparent" />
@@ -111,8 +103,7 @@ export default function Experience() {
                   <div>
                     <h3 className="text-2xl font-bold text-white">{exp.role}</h3>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-primary font-semibold">{exp.company}</span>
-                      <span className="text-slate-600">·</span>
+                      {exp.company && <><span className="text-primary font-semibold">{exp.company}</span><span className="text-slate-600">·</span></>}
                       <span className="text-slate-400 text-sm">{exp.type}</span>
                     </div>
                   </div>

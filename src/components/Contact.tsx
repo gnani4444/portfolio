@@ -128,9 +128,6 @@ export default function Contact() {
             <p className="text-sm" style={{ color: "#86868b" }}>
               Senior Data Scientist · AI/ML Engineer · GenAI Architect · London
             </p>
-            <p className="text-xs mt-2" style={{ color: "#3d3d3f" }}>
-              Built with Next.js, TypeScript & Framer Motion · Deployed on Vercel
-            </p>
           </div>
         </div>
       </div>

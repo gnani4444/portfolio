@@ -138,7 +138,7 @@ export default function Certifications() {
         {/* Heading */}
         <div className="flex items-center gap-4 mb-16">
           <span className="text-primary font-mono text-sm font-bold tracking-widest">
-            05.
+            04.
           </span>
           <h2 className="section-heading text-white">Certifications</h2>
           <div className="flex-1 h-px bg-gradient-to-r from-dark-border to-transparent" />
@@ -190,7 +190,7 @@ export default function Certifications() {
                   </h3>
 
                   <p className="text-slate-400 text-lg mb-2">
-                    <span className="text-secondary font-semibold">Anthropic</span> · 2025
+                    <span className="text-secondary font-semibold">Anthropic</span> · April 2026
                   </p>
 
                   <p className="text-slate-400 max-w-xl mb-8 leading-relaxed">

@@ -46,10 +46,10 @@ export default function Home() {
         <Navbar />
         <Hero />
         <About />
-        <Skills />
         <Experience />
         <Projects />
         <Certifications />
+        <Skills />
         <Contact />
       </div>
     </main>

@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 
 const highlights = [
   { icon: "🎓", label: "IIT Bhubaneswar", sub: "B.Tech" },
-  { icon: "📊", label: "IIIT Bangalore", sub: "Post Grad · Data Science" },
-  { icon: "📍", label: "London, UK", sub: "Open to Hybrid/Remote" },
-  { icon: "🤖", label: "Claude Certified", sub: "Architect" },
+  { icon: "📍", label: "London, UK", sub: "Open to Hybrid / Remote" },
+  { icon: "🏆", label: "Claude Certified", sub: "Architect · Anthropic 2026" },
+  { icon: "⚡", label: "6.5+ Years", sub: "Production AI/ML Systems" },
 ];
 
 const stats = [
-  { end: 6, suffix: ".5+", label: "Years Experience" },
-  { end: 15, suffix: "+", label: "ML Models Deployed" },
+  { end: 10, suffix: "M+", label: "Business Impact ($)" },
   { end: 10, suffix: "K+", label: "Manual Hours Saved" },
+  { end: 15, suffix: "+", label: "ML Models Deployed" },
   { end: 98, suffix: "%", label: "Model Accuracy (Peak)" },
 ];
 
@@ -31,9 +31,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex items-center gap-4 mb-16">
-          <span className="text-primary font-mono text-sm font-bold tracking-widest">
-            01.
-          </span>
+          <span className="text-primary font-mono text-sm font-bold tracking-widest">01.</span>
           <h2 className="section-heading text-white">About Me</h2>
           <div className="flex-1 h-px bg-gradient-to-r from-dark-border to-transparent" />
         </div>
@@ -44,35 +42,26 @@ export default function About() {
             className={`space-y-6 transition-all duration-1000 ${inView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
           >
             <p className="text-slate-300 text-lg leading-relaxed">
-              I'm a{" "}
-              <span className="text-secondary font-semibold">
-                Senior Data Scientist
-              </span>{" "}
-              with 6.5+ years of hands-on experience building and
-              productionising scalable AI/ML solutions and products. I work at
-              the intersection of advanced machine learning, generative AI, and
-              business strategy.
+              Senior Data Scientist with{" "}
+              <span className="text-secondary font-semibold">6.5+ years</span>{" "}
+              building production AI/ML systems that generate measurable business impact —
+              from{" "}
+              <span className="text-secondary font-semibold">$10M+ in delivered savings</span>{" "}
+              to 10,000+ manual hours automated annually.
             </p>
             <p className="text-slate-400 leading-relaxed">
-              Proven ability to collaborate with business stakeholders and
-              address strategic problems via data-driven solutions. Experienced
-              with novel algorithms, large-scale structured and unstructured
-              data.
+              My stack:{" "}
+              <span className="text-primary font-medium">Python · PyTorch · LangChain · FastAPI · Azure</span>.
+              I own the full pipeline — feature engineering, model training, REST API deployment,
+              monitoring, and automated retraining.
             </p>
             <p className="text-slate-400 leading-relaxed">
-              From building{" "}
-              <span className="text-primary font-medium">
-                multi-turn GenAI agents
-              </span>{" "}
-              and{" "}
-              <span className="text-primary font-medium">
-                fine-tuning LLMs with LoRA/QLoRA
-              </span>{" "}
-              to designing{" "}
-              <span className="text-primary font-medium">
-                MLOps pipelines on Azure
-              </span>{" "}
-              — I turn complex AI research into reliable production systems.
+              Recent focus:{" "}
+              <span className="text-primary font-medium">agentic systems with Claude & Gemini</span>,
+              RAG architectures over large document corpora,
+              LoRA/QLoRA fine-tuning for domain-specific tasks, and
+              <span className="text-primary font-medium"> MLOps pipelines on Azure</span> that
+              stay reliable under production load.
             </p>
 
             {/* Highlight badges */}
@@ -84,9 +73,7 @@ export default function About() {
                 >
                   <span className="text-2xl">{h.icon}</span>
                   <div>
-                    <div className="text-sm font-semibold text-white">
-                      {h.label}
-                    </div>
+                    <div className="text-sm font-semibold text-white">{h.label}</div>
                     <div className="text-xs text-slate-500">{h.sub}</div>
                   </div>
                 </div>
@@ -94,7 +81,7 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: Stats */}
+          {/* Right: Stats + Stack */}
           <div
             className={`transition-all duration-1000 delay-300 ${inView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}
           >
@@ -107,19 +94,12 @@ export default function About() {
                 >
                   <div className="text-5xl font-black gradient-text mb-2">
                     {started ? (
-                      <CountUp
-                        end={stat.end}
-                        duration={2.5}
-                        suffix={stat.suffix}
-                        delay={i * 0.2}
-                      />
+                      <CountUp end={stat.end} duration={2.5} suffix={stat.suffix} delay={i * 0.2} />
                     ) : (
                       `0${stat.suffix}`
                     )}
                   </div>
-                  <div className="text-sm text-slate-400 font-medium">
-                    {stat.label}
-                  </div>
+                  <div className="text-sm text-slate-400 font-medium">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -131,20 +111,9 @@ export default function About() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  "Python",
-                  "PyTorch",
-                  "TensorFlow",
-                  "LangChain",
-                  "FastAPI",
-                  "MLflow",
-                  "Azure",
-                  "PySpark",
-                  "SQL",
-                  "Docker",
-                  "Gemini",
-                  "OpenAI",
-                  "HuggingFace",
-                  "FAISS",
+                  "Python", "PyTorch", "TensorFlow", "LangChain", "FastAPI",
+                  "MLflow", "Azure", "PySpark", "SQL", "Docker",
+                  "Gemini", "Claude API", "OpenAI", "HuggingFace", "FAISS",
                 ].map((tech) => (
                   <span
                     key={tech}
