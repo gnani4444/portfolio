@@ -29,6 +29,30 @@ const projects = [
     featured: true,
   },
   {
+    title: "Truth Verifier",
+    subtitle: "AI-Powered Health Misinformation Detector",
+    description:
+      "Paste an Instagram post or reel URL and get real-time fact-check verdicts — TRUE, FALSE, or UNVERIFIABLE — with cited sources in seconds. Built to make health and science fact-checking frictionless at scale.",
+    longDesc:
+      "The backend fetches Instagram content via yt-dlp (cookie-based auth), extracts audio with ffmpeg, and transcribes it via Gradium STT. TinyFish Agent AI parses the transcript into individual factual claims, searches each against the web using TinyFish Search API, then returns a verdict with explanation and source citation. Results stream to the browser in real time via SSE — users see claims resolve as they arrive, no full-pipeline wait.",
+    tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "Python", "FastAPI", "SSE", "Supabase", "TinyFish Agent", "Gemini Vision", "yt-dlp", "ffmpeg", "Gradium STT", "Vercel", "Render"],
+    gradient: "from-purple-500/20 to-pink-500/20",
+    accentColor: "#BF5AF2",
+    icon: "🛡️",
+    features: [
+      "Real-time SSE streaming — verdicts appear as each claim resolves",
+      "Solved Vercel Edge timeout by moving DB write to client-side POST after 'done' event",
+      "Tiered usage system (free / pro / admin) with live usage banner and upgrade modal",
+      "File-based extraction cache keyed by URL + vision flag — avoids redundant Gradium calls",
+      "Supabase RLS with service-role bypass pattern for reliable server-side writes",
+      "Vision mode: Gemini Vision analyzes on-screen text in video frames (admin tier)",
+    ],
+    link: "https://truth-verifier.vercel.app/",
+    github: null,
+    badge: "Featured",
+    featured: true,
+  },
+  {
     title: "Campaign Intelligence Platform",
     subtitle: "GenAI Agentic Data Extraction System",
     description:
@@ -74,6 +98,13 @@ const projects = [
   },
 ];
 
+function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 function FeaturedProjectCard({
   project,
   inView,
@@ -82,6 +113,8 @@ function FeaturedProjectCard({
   inView: boolean;
 }) {
   const [expanded, setExpanded] = useState(false);
+  const c = project.accentColor;
+  const domain = project.link ? new URL(project.link).hostname : "";
 
   return (
     <div
@@ -90,17 +123,17 @@ function FeaturedProjectCard({
       {/* Outer glow */}
       <div
         className="absolute -inset-1 rounded-3xl opacity-40 blur-md animate-pulse"
-        style={{ background: "linear-gradient(135deg,#2997ff,#64d2ff,#2997ff)" }}
+        style={{ background: `linear-gradient(135deg,${c},${hexToRgba(c, 0.6)},${c})` }}
       />
       <div
         className="relative rounded-3xl overflow-hidden"
         style={{
           background: "linear-gradient(135deg,#000d1a 0%,#001428 100%)",
-          border: "1.5px solid rgba(41,151,255,0.45)",
+          border: `1.5px solid ${hexToRgba(c, 0.45)}`,
         }}
       >
         {/* Top bar */}
-        <div className="h-1 w-full" style={{ background: "linear-gradient(90deg,#2997ff,#64d2ff,#2997ff)" }} />
+        <div className="h-1 w-full" style={{ background: `linear-gradient(90deg,${c},${hexToRgba(c, 0.6)},${c})` }} />
 
         <div className="p-8 md:p-12">
           <div className="flex flex-col lg:flex-row gap-10 items-start">
@@ -110,9 +143,9 @@ function FeaturedProjectCard({
                 <span
                   className="px-3 py-1 rounded-full text-xs font-bold"
                   style={{
-                    background: "rgba(41,151,255,0.15)",
-                    border: "1px solid rgba(41,151,255,0.4)",
-                    color: "#2997ff",
+                    background: hexToRgba(c, 0.15),
+                    border: `1px solid ${hexToRgba(c, 0.4)}`,
+                    color: c,
                   }}
                 >
                   ⭐ Featured Project
@@ -133,15 +166,15 @@ function FeaturedProjectCard({
                 <div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
                   style={{
-                    background: "rgba(41,151,255,0.15)",
-                    border: "1px solid rgba(41,151,255,0.3)",
+                    background: hexToRgba(c, 0.15),
+                    border: `1px solid ${hexToRgba(c, 0.3)}`,
                   }}
                 >
                   {project.icon}
                 </div>
                 <div>
                   <h3 className="text-3xl font-black text-white">{project.title}</h3>
-                  <p className="text-sm font-semibold" style={{ color: "#2997ff" }}>
+                  <p className="text-sm font-semibold" style={{ color: c }}>
                     {project.subtitle}
                   </p>
                 </div>
@@ -151,7 +184,7 @@ function FeaturedProjectCard({
 
               {/* Expandable */}
               <div
-                className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-64" : "max-h-0"}`}
+                className={`overflow-hidden transition-all duration-500 ${expanded ? "max-h-96" : "max-h-0"}`}
               >
                 <p className="text-slate-500 leading-relaxed mb-4 pt-4 border-t border-white/5">
                   {project.longDesc}
@@ -159,7 +192,7 @@ function FeaturedProjectCard({
                 <ul className="space-y-1.5 mb-4">
                   {project.features.map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm text-slate-400">
-                      <span style={{ color: "#2997ff" }}>▸</span>
+                      <span style={{ color: c }}>▸</span>
                       {f}
                     </li>
                   ))}
@@ -173,9 +206,9 @@ function FeaturedProjectCard({
                     key={tag}
                     className="px-2.5 py-1 text-xs font-mono rounded-lg"
                     style={{
-                      background: "rgba(41,151,255,0.08)",
-                      border: "1px solid rgba(41,151,255,0.2)",
-                      color: "#74c2ff",
+                      background: hexToRgba(c, 0.08),
+                      border: `1px solid ${hexToRgba(c, 0.2)}`,
+                      color: c,
                     }}
                   >
                     {tag}
@@ -191,9 +224,9 @@ function FeaturedProjectCard({
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 hover:scale-105 group"
                   style={{
-                    background: "#2997ff",
+                    background: c,
                     color: "#fff",
-                    boxShadow: "0 4px 20px rgba(41,151,255,0.4)",
+                    boxShadow: `0 4px 20px ${hexToRgba(c, 0.4)}`,
                   }}
                 >
                   <span>View Live Demo</span>
@@ -205,9 +238,9 @@ function FeaturedProjectCard({
                   onClick={() => setExpanded(!expanded)}
                   className="px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 border"
                   style={{
-                    borderColor: "rgba(41,151,255,0.3)",
-                    color: "#2997ff",
-                    background: "rgba(41,151,255,0.07)",
+                    borderColor: hexToRgba(c, 0.3),
+                    color: c,
+                    background: hexToRgba(c, 0.07),
                   }}
                 >
                   {expanded ? "Show Less ↑" : "Learn More ↓"}
@@ -220,9 +253,9 @@ function FeaturedProjectCard({
               <div
                 className="rounded-2xl overflow-hidden"
                 style={{
-                  border: "1px solid rgba(41,151,255,0.2)",
+                  border: `1px solid ${hexToRgba(c, 0.2)}`,
                   background: "#000",
-                  boxShadow: "0 8px 40px rgba(41,151,255,0.15)",
+                  boxShadow: `0 8px 40px ${hexToRgba(c, 0.15)}`,
                 }}
               >
                 {/* Browser chrome */}
@@ -233,21 +266,19 @@ function FeaturedProjectCard({
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                  <span className="ml-2 text-xs text-slate-600 font-mono truncate">
-                    v0-e-commerce-customization-platfor.vercel.app
-                  </span>
+                  <span className="ml-2 text-xs text-slate-600 font-mono truncate">{domain}</span>
                 </div>
                 <div style={{ height: 320, position: "relative" }}>
                   <iframe
-                    src="https://v0-e-commerce-customization-platfor.vercel.app/"
-                    title="GiftVision Live Preview"
+                    src={project.link!}
+                    title={`${project.title} Live Preview`}
                     className="w-full h-full"
                     style={{ border: "none", pointerEvents: "none" }}
                     loading="lazy"
                   />
                   {/* Overlay to open on click */}
                   <a
-                    href="https://v0-e-commerce-customization-platfor.vercel.app/"
+                    href={project.link!}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
@@ -255,7 +286,7 @@ function FeaturedProjectCard({
                   >
                     <span
                       className="px-4 py-2 rounded-xl text-sm font-bold text-white"
-                      style={{ background: "#2997ff", boxShadow: "0 2px 12px rgba(41,151,255,0.5)" }}
+                      style={{ background: c, boxShadow: `0 2px 12px ${hexToRgba(c, 0.5)}` }}
                     >
                       Open Full Demo ↗
                     </span>
@@ -372,7 +403,7 @@ function ProjectCard({
 export default function Projects() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
-  const featuredProject = projects.find((p) => p.featured)!;
+  const featuredProjects = projects.filter((p) => p.featured);
   const otherProjects = projects.filter((p) => !p.featured);
 
   return (
@@ -392,8 +423,10 @@ export default function Projects() {
           AI/ML systems I&apos;ve designed, built, and shipped — from GenAI agents to full-stack AI applications.
         </p>
 
-        {/* Featured project */}
-        <FeaturedProjectCard project={featuredProject} inView={inView} />
+        {/* Featured projects */}
+        {featuredProjects.map((project) => (
+          <FeaturedProjectCard key={project.title} project={project} inView={inView} />
+        ))}
 
         {/* Other projects */}
         {otherProjects.length > 0 && (
