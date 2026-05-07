@@ -47,7 +47,7 @@ const projects = [
       "Supabase RLS with service-role bypass pattern for reliable server-side writes",
       "Vision mode: Gemini Vision analyzes on-screen text in video frames (admin tier)",
     ],
-    link: "https://truth-verifier.vercel.app/",
+    link: "https://www.truthverifier.in/",
     github: null,
     badge: "Featured",
     featured: true,
