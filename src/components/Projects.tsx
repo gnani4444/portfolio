@@ -27,6 +27,7 @@ const projects = [
     github: null,
     badge: "Featured",
     featured: true,
+    previewBlocked: false,
   },
   {
     title: "Truth Verifier",
@@ -51,6 +52,7 @@ const projects = [
     github: null,
     badge: "Featured",
     featured: true,
+    previewBlocked: true,
   },
   {
     title: "Campaign Intelligence Platform",
@@ -269,28 +271,56 @@ function FeaturedProjectCard({
                   <span className="ml-2 text-xs text-slate-600 font-mono truncate">{domain}</span>
                 </div>
                 <div style={{ height: 320, position: "relative" }}>
-                  <iframe
-                    src={project.link!}
-                    title={`${project.title} Live Preview`}
-                    className="w-full h-full"
-                    style={{ border: "none", pointerEvents: "none" }}
-                    loading="lazy"
-                  />
-                  {/* Overlay to open on click */}
-                  <a
-                    href={project.link!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: "rgba(0,0,0,0.45)" }}
-                  >
-                    <span
-                      className="px-4 py-2 rounded-xl text-sm font-bold text-white"
-                      style={{ background: c, boxShadow: `0 2px 12px ${hexToRgba(c, 0.5)}` }}
+                  {project.previewBlocked ? (
+                    <a
+                      href={project.link!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center justify-center w-full h-full gap-5 group"
+                      style={{ background: "rgba(0,0,0,0.6)" }}
                     >
-                      Open Full Demo ↗
-                    </span>
-                  </a>
+                      <div
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
+                        style={{ background: hexToRgba(c, 0.15), border: `1px solid ${hexToRgba(c, 0.3)}` }}
+                      >
+                        {project.icon}
+                      </div>
+                      <div className="text-center px-6">
+                        <p className="text-white font-bold text-base mb-1">{project.title}</p>
+                        <p className="text-slate-400 text-xs mb-4 font-mono">{domain}</p>
+                        <span
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all duration-300 group-hover:scale-105"
+                          style={{ background: c, boxShadow: `0 2px 16px ${hexToRgba(c, 0.45)}` }}
+                        >
+                          Open Live Demo ↗
+                        </span>
+                      </div>
+                    </a>
+                  ) : (
+                    <>
+                      <iframe
+                        src={project.link!}
+                        title={`${project.title} Live Preview`}
+                        className="w-full h-full"
+                        style={{ border: "none", pointerEvents: "none" }}
+                        loading="lazy"
+                      />
+                      <a
+                        href={project.link!}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: "rgba(0,0,0,0.45)" }}
+                      >
+                        <span
+                          className="px-4 py-2 rounded-xl text-sm font-bold text-white"
+                          style={{ background: c, boxShadow: `0 2px 12px ${hexToRgba(c, 0.5)}` }}
+                        >
+                          Open Full Demo ↗
+                        </span>
+                      </a>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
